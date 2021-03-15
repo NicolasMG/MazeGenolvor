@@ -16,5 +16,5 @@ The current display unables the visualisation of Maze of a certain size.
 2 pictures are generated in the executed file folder. The Maze and it's resolution
 
 
-Thanks to Jamis Buck for the maze generation
+Thanks to Jamis Buck for the maze generation.
 http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap

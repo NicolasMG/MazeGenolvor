@@ -34,10 +34,10 @@
             this.Hauteur = new System.Windows.Forms.NumericUpDown();
             this.Longueur = new System.Windows.Forms.NumericUpDown();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.TypePathfinding = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.TypeCreation = new System.Windows.Forms.ComboBox();
             this.checkBoxES = new System.Windows.Forms.CheckBox();
             this.pathfinding = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Hauteur)).BeginInit();
@@ -128,13 +128,14 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // comboBox1
+            // TypePathfinding
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(485, 38);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(170, 21);
-            this.comboBox1.TabIndex = 8;
+            this.TypePathfinding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TypePathfinding.FormattingEnabled = true;
+            this.TypePathfinding.Location = new System.Drawing.Point(485, 38);
+            this.TypePathfinding.Name = "TypePathfinding";
+            this.TypePathfinding.Size = new System.Drawing.Size(170, 21);
+            this.TypePathfinding.TabIndex = 8;
             // 
             // label3
             // 
@@ -154,21 +155,15 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Type de pathfinding";
             // 
-            // comboBox2
+            // TypeCreation
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Recursive implementation",
-            "Iterative implementation",
-            "Randomized Kruskal\'s algorithm",
-            "Randomized Prim\'s algorithm",
-            "Wilson\'s algorithm",
-            "Aldous-Broder algorithm"});
-            this.comboBox2.Location = new System.Drawing.Point(485, 13);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(170, 21);
-            this.comboBox2.TabIndex = 11;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.TypeCreation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TypeCreation.FormattingEnabled = true;
+            this.TypeCreation.Location = new System.Drawing.Point(485, 13);
+            this.TypeCreation.Name = "TypeCreation";
+            this.TypeCreation.Size = new System.Drawing.Size(170, 21);
+            this.TypeCreation.TabIndex = 11;
+            this.TypeCreation.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // checkBoxES
             // 
@@ -192,6 +187,7 @@
             this.pathfinding.TabIndex = 13;
             this.pathfinding.Text = "Pathfinding";
             this.pathfinding.UseVisualStyleBackColor = true;
+            this.pathfinding.Click += new System.EventHandler(this.pathfinding_Click);
             // 
             // Form1
             // 
@@ -200,10 +196,10 @@
             this.ClientSize = new System.Drawing.Size(1184, 861);
             this.Controls.Add(this.pathfinding);
             this.Controls.Add(this.checkBoxES);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.TypeCreation);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.TypePathfinding);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Longueur);
             this.Controls.Add(this.Hauteur);
@@ -229,10 +225,10 @@
         private System.Windows.Forms.NumericUpDown Hauteur;
         private System.Windows.Forms.NumericUpDown Longueur;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox TypePathfinding;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox TypeCreation;
         private System.Windows.Forms.CheckBox checkBoxES;
         private System.Windows.Forms.Button pathfinding;
     }

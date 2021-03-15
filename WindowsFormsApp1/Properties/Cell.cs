@@ -27,6 +27,5 @@ namespace WindowsFormsApp1.Properties
             //mur = new bool[4] { random.Next(2) == 1, random.Next(2) == 1, random.Next(2) == 1, random.Next(2) == 1 };
             //not used
         }
-
     }
 }

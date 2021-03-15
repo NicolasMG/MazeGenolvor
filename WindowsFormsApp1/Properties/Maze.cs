@@ -19,7 +19,7 @@ namespace WindowsFormsApp1.Properties
         public bool entreeSortie;
         public string genealgo;
 
-        public Cell[,] cells;
+        public Cell[,] cells;//longuer,hauteur
 
         public Random random;
         
@@ -67,11 +67,11 @@ namespace WindowsFormsApp1.Properties
         {
             switch (genealgo)
             {
-                case "Recursive implementation":
+                case "Recursive Implementation":
                     RecursiveImplementation();
                     break;
-                case "Iterative Implementation":
-                    IterativeImplementation();
+                case "Eller’s algorithm":
+                    EllerAlgorithm();
                     break;
                 case "Randomized Kruskal's algorithm":
                     RandomizedKruskalAlgorithm();
@@ -79,17 +79,36 @@ namespace WindowsFormsApp1.Properties
                 case "Randomized Prim's algorithm":
                     RandomizedPrimAlgorithm();
                     break;
-                case "Wilson's alhorithm":
-                    WilsonAlgorithm();
+                case "Recursive division algorithm":
+                    RecursiveDivisionAlgorithm();
                     break;
                 case "Aldous-Broder algoritm":
-                    AldousBroderAlgorithm();
+                    AldousBroderAlgoritm();
                     break;
+                case "Wilson's alhorithm":
+                    WilsonAlhorithm();
+                    break;
+                case "Iterative Implementation":
+                    IterativeImplementation();
+                    break;
+                case "Growing Tree algorithm":
+                    GrowingTreeAlgorithm();
+                    break;
+                case "Binary Tree algorithm":
+                    BinaryTreeAlgorithm();
+                    break;
+                case "Sidewinder algorithm":
+                    SidewinderAlgorithm();
+                    break;
+
+
+
                 default:
                     RecursiveImplementation();
                     break;
             }
         }
+
 
         /// <summary>
         /// Choisir une case aléatoire
@@ -147,7 +166,195 @@ namespace WindowsFormsApp1.Properties
                 }
             }
         }
-        
+
+        /// <summary>
+        /// One of the fastest
+        /// build Row by Row 
+        ///     1.  First row : Init each cells in different set each
+        ///     2.  Join random adjacent cells if not same set. When Joined, merge set in 1
+        ///     3.  For each Set, create at least 1 vertical connection down to next row (target cell put in the set)
+        ///     4.  Remaning Cell get own set
+        ///     5.  Repeat 2-4 until last row
+        ///     6.  Last row : do 2
+        /// </summary>
+        private void EllerAlgorithm()
+        {
+            List<List<Cell>> listOfSets = new List<List<Cell>>();
+            int setNumber = 0;
+
+            for (int i = 0; i < longueur; i++)
+            {
+                if (cells[i, 0].setValue < 0)
+                {
+                    List<Cell> tempSet = new List<Cell>();
+                    tempSet.Add(cells[i, 0]);
+                    cells[i, 0].setValue = setNumber;
+                    setNumber++;
+                    listOfSets.Add(tempSet);
+                }
+            }
+            
+            for (int haut = 0; haut < hauteur - 1; haut++)
+            {
+                RowSetFusion(listOfSets, haut);
+                VerticalConnection(listOfSets, haut);
+
+                setNumber = NewSetInRow(listOfSets, setNumber, haut);
+            }
+            while (listOfSets.Count(x => x.Count > 0) != 1)
+            {
+                RowSetFusion(listOfSets, hauteur-1);
+
+            }
+        }
+
+        private int NewSetInRow(List<List<Cell>> listOfSets, int setNumber, int haut)
+        {
+            for (int longu = 0; longu < longueur ; longu++)
+            {
+                if (cells[longu, haut + 1].setValue < 0)
+                {
+                    List<Cell> tempSet = new List<Cell>();
+                    tempSet.Add(cells[longu, haut + 1]);
+                    cells[longu, haut + 1].setValue = setNumber;
+                    setNumber++;
+                    listOfSets.Add(tempSet);
+                }
+            }
+
+            return setNumber;
+        }
+
+        private void VerticalConnection(List<List<Cell>> listOfSets, int haut)
+        {
+            foreach (List<Cell> listCell in listOfSets.FindAll(x => x.Count > 0))
+            {
+                List<Cell> listCellInRow = listCell.FindAll(x => x.coordonne[1] == haut);
+                int numberCellNextRowAdd = random.Next(1, listCellInRow.Count);
+                foreach (Cell cell in listCellInRow.OrderBy(x => random.Next()).Take(numberCellNextRowAdd))
+                {
+                    cells[cell.coordonne[0], haut + 1].setValue = cell.setValue;
+                    listCell.Add(cells[cell.coordonne[0], haut + 1]);
+                    ChangerMurCellule(cells[cell.coordonne[0], haut], cells[cell.coordonne[0], haut + 1]);
+
+                }
+            }
+        }
+
+        private void RowSetFusion(List<List<Cell>> listOfSets, int haut)
+        {
+            for (int i = 0; i < longueur - 1; i++)
+            {
+                if (random.Next(0, 2) == 0)
+                {
+                    if (cells[i,haut].setValue != cells[i+1, haut].setValue)
+                    {
+                        FusionSetAndCell(i, haut, i + 1, haut, listOfSets);
+                    }
+                }
+            }
+        }
+
+        private void FusionSetAndCell(int cell1x, int cell1y, int cell2x, int cell2y, List<List<Cell>> listOfSets)
+        {
+            Cell cell1 = cells[cell1x, cell1y];
+            Cell cell2 = cells[cell2x, cell2y];
+            //check and open wall between the 2 cell
+            ChangerMurCellule(cell1, cell2);
+            //Merge sets into 1
+            int newSetNumber = cell1.setValue;
+            int oldSetNumber = cell2.setValue;
+            if(oldSetNumber < 0)
+            {
+                cell2.setValue = newSetNumber;
+                listOfSets[newSetNumber].Add(cells[cell2x, cell2y]);
+            }
+            else
+            {
+                foreach (Cell cell in listOfSets[oldSetNumber])
+                {
+                    cell.setValue = newSetNumber;
+                }
+                listOfSets[newSetNumber].AddRange(listOfSets[oldSetNumber]);
+                listOfSets[oldSetNumber].Clear();
+            }
+            
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void RandomizedKruskalAlgorithm()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void RandomizedPrimAlgorithm()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void RecursiveDivisionAlgorithm()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void AldousBroderAlgoritm()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void WilsonAlhorithm()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void IterativeImplementation()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GrowingTreeAlgorithm()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void BinaryTreeAlgorithm()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SidewinderAlgorithm()
+        {
+            throw new NotImplementedException();
+        }
+
+
         private List<Cell> ChoisirCelluleProche(Cell cell)
         {
             List<Cell> cellulesAdj = new List<Cell>();
@@ -187,8 +394,7 @@ namespace WindowsFormsApp1.Properties
 
             return cellulesAdj;
         }
-
-        //done
+        
         private void ChangerMurCellule(Cell cell1, Cell cell2)
         {
             if (cell1.coordonne[0] == cell2.coordonne[0])//meme ligne
@@ -232,29 +438,6 @@ namespace WindowsFormsApp1.Properties
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private void IterativeImplementation()
-        {
-            throw new NotImplementedException();
-        }
-        private void RandomizedKruskalAlgorithm()
-        {
-            throw new NotImplementedException();
-        }
-        private void RandomizedPrimAlgorithm()
-        {
-            throw new NotImplementedException();
-        }
-        private void WilsonAlgorithm()
-        {
-            throw new NotImplementedException();
-        }
-        private void AldousBroderAlgorithm()
-        {
-            throw new NotImplementedException();
-        }
 
         public Bitmap DessinerMaze()
         {

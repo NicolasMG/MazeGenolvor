@@ -22,12 +22,18 @@ namespace WindowsFormsApp1
 
             //set up values
             List<string> list = new List<string>();
-            list.Add("Recursive Implementation");
-            list.Add("Iterative Implementation");
-            list.Add("Randomized Kruskal's algorithm");
-            list.Add("Randomized Prim's algorithm");
-            list.Add("Wilson's alhorithm");
-            list.Add("Aldous-Broder algoritm");
+            list.Add("Recursive Implementation");       // Recursive Backtracker
+            list.Add("Eller’s algorithm");              // Eller’s algorithm
+            list.Add("Randomized Kruskal's algorithm"); // Kruskal’s algorithm
+            list.Add("Randomized Prim's algorithm");    // Prim’s algorithm
+            list.Add("Recursive division algorithm");   // Recursive division algorithm
+            list.Add("Aldous-Broder algoritm");         // Aldous-Broder algorithm 
+            list.Add("Wilson's alhorithm");             // Wilson’s algorithm 
+            list.Add("Iterative Implementation");       // Hunt-and-Kill
+            list.Add("Growing Tree algorithm");         // Growing Tree algorithm
+            list.Add("Binary Tree algorithm");          // Binary Tree algorithm
+            list.Add("Sidewinder algorithm");           // Sidewinder algorithm
+
             TypeCreation.DataSource = list;
 
             List<string> listPath = new List<string>();
@@ -38,12 +44,7 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             MazeG.GenererMaze(Longueur.Value, Hauteur.Value, TypeCreation.Text, checkBoxES.Checked);
-
-            //demande moi la solution
-            //MazeG.Solution();
-
-            //suite après avoir générer le maze et sa solution ?
-            //l'afficher 
+            
             Image = MazeG.DessinerMaze();
             pictureBox1.ClientSize = new Size(Image.Size.Width, Image.Size.Height);
             pictureBox1.Image = Image;

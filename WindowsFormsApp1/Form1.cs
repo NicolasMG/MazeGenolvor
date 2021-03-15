@@ -89,6 +89,10 @@ namespace WindowsFormsApp1
         private void pathfinding_Click(object sender, EventArgs e)
         {
             pathfinderSolver.solve(TypePathfinding.Text,  MazeG);
+
+            Image = pathfinderSolver.DessinerPathfinderMaze();
+            pictureBox1.ClientSize = new Size(Image.Size.Width, Image.Size.Height);
+            pictureBox1.Image = Image;
         }
         
     }

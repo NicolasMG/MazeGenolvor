@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using WindowsFormsApp1.Properties;
 
 namespace WindowsFormsApp1
@@ -130,6 +132,50 @@ namespace WindowsFormsApp1
             }
             return false;
         }
+
+        public Bitmap DessinerPathfinderMaze()
+        {
+            Bitmap b = maze.DessinerMaze();
+            Graphics g = Graphics.FromImage(b);
+
+            Pen pen = new Pen(Brushes.DeepSkyBlue);
+            pen.Width = 6.0F;
+
+            Node node1 = solution[0];
+            g.DrawLine(pen, node1.coordonates[0] * 20 + 10, node1.coordonates[1] * 20 + 10, node1.coordonates[0] * 20 + 10, node1.coordonates[1] * 20+20);
+
+            foreach (Node node2 in solution)
+            {
+                g.DrawLine(pen, node1.coordonates[0]*20+10, node1.coordonates[1]*20+10, node2.coordonates[0]*20+10, node2.coordonates[1]*20+10);
+                node1 = node2;
+            }
+            g.DrawLine(pen, node1.coordonates[0] * 20 + 10, node1.coordonates[1] * 20 + 10, node1.coordonates[0] * 20 + 10, node1.coordonates[1] * 20 );
+
+            pen.Dispose();
+
+            Bitmap objBitmap = b;
+            objBitmap.Save("./mazePath.png", ImageFormat.Png);
+            return objBitmap;
+        }
+        /*
+         * 
+         *         public Bitmap DessinerMaze()
+                    {
+                        Bitmap b = new Bitmap(longueur * 20, hauteur * 20);
+                        Graphics g = Graphics.FromImage(b);
+            
+                        foreach(Cell cell in cells)
+                        {
+                            g.DrawImage(AvoirRessource(cell),
+                                    cell.coordonne[0] * 20,
+                                    cell.coordonne[1] * 20);
+                        }
+                        Bitmap objBitmap = b;
+                        objBitmap.Save("./maze.png", ImageFormat.Png);
+                        return objBitmap;
+                    }
+         * 
+         */
 
         private void BuildPath(Node currentNode)
         {

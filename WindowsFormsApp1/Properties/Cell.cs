@@ -24,8 +24,6 @@ namespace WindowsFormsApp1.Properties
             //Random random = new Random();
             this.coordonne = new int[2] { ilong, ihaut };
             mur = new bool[4] { false, false, false, false };
-            //mur = new bool[4] { random.Next(2) == 1, random.Next(2) == 1, random.Next(2) == 1, random.Next(2) == 1 };
-            //not used
         }
     }
 }

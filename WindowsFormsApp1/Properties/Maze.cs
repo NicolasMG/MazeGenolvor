@@ -267,8 +267,7 @@ namespace WindowsFormsApp1.Properties
                         cell.coordonne[0] * 20,
                         cell.coordonne[1] * 20);
             }
-            //changer les valeurs pour correspondre correctement aux attentes
-            //Bitmap objBitmap = new Bitmap(b/*, new Size(longueur * 20, hauteur * 20)*/);
+
             Bitmap objBitmap = b;
             objBitmap.Save("./maze.png", ImageFormat.Png);
             return objBitmap;

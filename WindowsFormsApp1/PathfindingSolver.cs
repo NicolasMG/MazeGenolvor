@@ -33,10 +33,7 @@ namespace WindowsFormsApp1
                 case "A Star":
                     SolveAStar();
                     break;
-                    /*
-                     * ...
-                     * 
-                     */
+
                 default:
                     SolveAStar();
                     break;
@@ -157,25 +154,6 @@ namespace WindowsFormsApp1
             objBitmap.Save("./mazePath.png", ImageFormat.Png);
             return objBitmap;
         }
-        /*
-         * 
-         *         public Bitmap DessinerMaze()
-                    {
-                        Bitmap b = new Bitmap(longueur * 20, hauteur * 20);
-                        Graphics g = Graphics.FromImage(b);
-            
-                        foreach(Cell cell in cells)
-                        {
-                            g.DrawImage(AvoirRessource(cell),
-                                    cell.coordonne[0] * 20,
-                                    cell.coordonne[1] * 20);
-                        }
-                        Bitmap objBitmap = b;
-                        objBitmap.Save("./maze.png", ImageFormat.Png);
-                        return objBitmap;
-                    }
-         * 
-         */
 
         private void BuildPath(Node currentNode)
         {

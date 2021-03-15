@@ -24,15 +24,15 @@ namespace WindowsFormsApp1
             List<string> list = new List<string>();
             list.Add("Recursive Implementation");       // Recursive Backtracker
             list.Add("Eller’s algorithm");              // Eller’s algorithm
-            list.Add("Randomized Kruskal's algorithm"); // Kruskal’s algorithm
-            list.Add("Randomized Prim's algorithm");    // Prim’s algorithm
-            list.Add("Recursive division algorithm");   // Recursive division algorithm
-            list.Add("Aldous-Broder algoritm");         // Aldous-Broder algorithm 
-            list.Add("Wilson's alhorithm");             // Wilson’s algorithm 
-            list.Add("Iterative Implementation");       // Hunt-and-Kill
-            list.Add("Growing Tree algorithm");         // Growing Tree algorithm
-            list.Add("Binary Tree algorithm");          // Binary Tree algorithm
-            list.Add("Sidewinder algorithm");           // Sidewinder algorithm
+            //list.Add("Randomized Kruskal's algorithm"); // Kruskal’s algorithm
+            //list.Add("Randomized Prim's algorithm");    // Prim’s algorithm
+            //list.Add("Recursive division algorithm");   // Recursive division algorithm
+            //list.Add("Aldous-Broder algoritm");         // Aldous-Broder algorithm 
+            //list.Add("Wilson's alhorithm");             // Wilson’s algorithm 
+            //list.Add("Iterative Implementation");       // Hunt-and-Kill
+            //list.Add("Growing Tree algorithm");         // Growing Tree algorithm
+            //list.Add("Binary Tree algorithm");          // Binary Tree algorithm
+            //list.Add("Sidewinder algorithm");           // Sidewinder algorithm
 
             TypeCreation.DataSource = list;
 

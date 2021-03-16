@@ -325,65 +325,44 @@ namespace WindowsFormsApp1.Properties
                     case 0:
                         cell1 = cells[ed[0], ed[1]];
                         cell2 = cells[ed[0] + 1, ed[1]];
-                        if (cell1.setValue != cell2.setValue)
-                        {
-                            ChangerMurCellule(cell1, cell2);
-
-                            List<Cell> listCells1 = listOfSets[cell1.setValue];
-                            List<Cell> listCells2 = listOfSets[cell2.setValue];
-
-                            if (listCells1.Count() >= listCells2.Count())
-                            {
-                                foreach(Cell cell in listCells2)
-                                {
-                                    cell.setValue = cell1.setValue;
-                                }
-                                listCells1.AddRange(listCells2);
-                                listCells2.Clear();
-                            }
-                            else
-                            {
-                                foreach (Cell cell in listCells1)
-                                {
-                                    cell.setValue = cell2.setValue;
-                                }
-                                listCells2.AddRange(listCells1);
-                                listCells1.Clear();
-                            }
-                        }
                         break;
                     case 1:
                         cell1 = cells[ed[0], ed[1]];
                         cell2 = cells[ed[0], ed[1]+1];
-                        if (cell1.setValue != cell2.setValue)
-                        {
-                            ChangerMurCellule(cell1, cell2);
-
-                            List<Cell> listCells1 = listOfSets[cell1.setValue];
-                            List<Cell> listCells2 = listOfSets[cell2.setValue];
-
-                            if (listCells1.Count() >= listCells2.Count())
-                            {
-                                foreach (Cell cell in listCells2)
-                                {
-                                    cell.setValue = cell1.setValue;
-                                }
-                                listCells1.AddRange(listCells2);
-                                listCells2.Clear();
-                            }
-                            else
-                            {
-                                foreach (Cell cell in listCells1)
-                                {
-                                    cell.setValue = cell2.setValue;
-                                }
-                                listCells2.AddRange(listCells1);
-                                listCells1.Clear();
-                            }
-                        }
                         break;
                     default:
                         throw new Exception();
+                }
+                FusionSets(listOfSets, cell1, cell2);
+            }
+        }
+
+        private void FusionSets(List<List<Cell>> listOfSets, Cell cell1, Cell cell2)
+        {
+            if (cell1.setValue != cell2.setValue)
+            {
+                ChangerMurCellule(cell1, cell2);
+
+                List<Cell> listCells1 = listOfSets[cell1.setValue];
+                List<Cell> listCells2 = listOfSets[cell2.setValue];
+
+                if (listCells1.Count() >= listCells2.Count())
+                {
+                    foreach (Cell cell in listCells2)
+                    {
+                        cell.setValue = cell1.setValue;
+                    }
+                    listCells1.AddRange(listCells2);
+                    listCells2.Clear();
+                }
+                else
+                {
+                    foreach (Cell cell in listCells1)
+                    {
+                        cell.setValue = cell2.setValue;
+                    }
+                    listCells2.AddRange(listCells1);
+                    listCells1.Clear();
                 }
             }
         }

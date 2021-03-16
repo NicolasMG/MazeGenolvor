@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
             List<string> list = new List<string>();
             list.Add("Recursive Implementation");       // Recursive Backtracker
             list.Add("Eller’s algorithm");              // Eller’s algorithm
-            //list.Add("Randomized Kruskal's algorithm"); // Kruskal’s algorithm
+            list.Add("Randomized Kruskal's algorithm"); // Kruskal’s algorithm
             //list.Add("Randomized Prim's algorithm");    // Prim’s algorithm
             //list.Add("Recursive division algorithm");   // Recursive division algorithm
             //list.Add("Aldous-Broder algoritm");         // Aldous-Broder algorithm 

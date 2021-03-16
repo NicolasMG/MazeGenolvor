@@ -54,13 +54,13 @@ namespace WindowsFormsApp1.Properties
 
         public void CreerAcces()
         {
-            cells[0, 0].mur[0] = true;
-            cells[longueur - 1, hauteur - 1].mur[2] = true;
+            cells[0, 0].mur[3] = true;
+            cells[longueur - 1, hauteur - 1].mur[1] = true;
         }
         public void CacherAcces()
         {
-            cells[0, 0].mur[0] = false;
-            cells[longueur - 1, hauteur - 1].mur[2] = false;
+            cells[0, 0].mur[3] = false;
+            cells[longueur - 1, hauteur - 1].mur[1] = false;
         }
 
         public void AbbattreLesMurs(string genealgo)
@@ -175,7 +175,7 @@ namespace WindowsFormsApp1.Properties
         ///     3.  For each Set, create at least 1 vertical connection down to next row (target cell put in the set)
         ///     4.  Remaning Cell get own set
         ///     5.  Repeat 2-4 until last row
-        ///     6.  Last row : do 2
+        ///     6.  Last row : do 2.
         /// </summary>
         private void EllerAlgorithm()
         {
@@ -283,11 +283,109 @@ namespace WindowsFormsApp1.Properties
 
 
         /// <summary>
-        /// 
+        /// minimal spanning tree -> Union-Find data stucture
+        ///     1. each cell in a set
+        ///     2. order each links (2 cells) in increasing order
+        ///     3. for each links (u,v) in order :
+        ///         if u and v not in same set:
+        ///             join u and v 
         /// </summary>
         private void RandomizedKruskalAlgorithm()
         {
-            throw new NotImplementedException();
+            List<int[]> edge = new List<int[]>(); //int[3] with first 2 position, 3rd for direction 0 in longueur, 1 for hauteur
+
+            List<List<Cell>> listOfSets = new List<List<Cell>>();
+
+            int value = 0;
+            foreach(Cell cell in cells)
+            {
+                cell.setValue = value;
+                List<Cell> tempSet = new List<Cell>();
+                tempSet.Add(cell);
+                listOfSets.Add(tempSet);
+
+                value++;
+                if (cell.coordonne[0] != longueur - 1)
+                {
+                    int[] ed = { cell.coordonne[0], cell.coordonne[1], 0 };
+                    edge.Add(ed);
+                }
+                if (cell.coordonne[1] != hauteur - 1)
+                {
+                    int[] ed = { cell.coordonne[0], cell.coordonne[1], 1 };
+                    edge.Add(ed);
+                }
+            }
+            Cell cell1;
+            Cell cell2;
+            foreach (int[] ed in edge.OrderBy(x => random.Next()))
+            {
+                switch (ed[2])
+                {
+                    case 0:
+                        cell1 = cells[ed[0], ed[1]];
+                        cell2 = cells[ed[0] + 1, ed[1]];
+                        if (cell1.setValue != cell2.setValue)
+                        {
+                            ChangerMurCellule(cell1, cell2);
+
+                            List<Cell> listCells1 = listOfSets[cell1.setValue];
+                            List<Cell> listCells2 = listOfSets[cell2.setValue];
+
+                            if (listCells1.Count() >= listCells2.Count())
+                            {
+                                foreach(Cell cell in listCells2)
+                                {
+                                    cell.setValue = cell1.setValue;
+                                }
+                                listCells1.AddRange(listCells2);
+                                listCells2.Clear();
+                            }
+                            else
+                            {
+                                foreach (Cell cell in listCells1)
+                                {
+                                    cell.setValue = cell2.setValue;
+                                }
+                                listCells2.AddRange(listCells1);
+                                listCells1.Clear();
+                            }
+                        }
+                        break;
+                    case 1:
+                        cell1 = cells[ed[0], ed[1]];
+                        cell2 = cells[ed[0], ed[1]+1];
+                        if (cell1.setValue != cell2.setValue)
+                        {
+                            ChangerMurCellule(cell1, cell2);
+
+                            List<Cell> listCells1 = listOfSets[cell1.setValue];
+                            List<Cell> listCells2 = listOfSets[cell2.setValue];
+
+                            if (listCells1.Count() >= listCells2.Count())
+                            {
+                                foreach (Cell cell in listCells2)
+                                {
+                                    cell.setValue = cell1.setValue;
+                                }
+                                listCells1.AddRange(listCells2);
+                                listCells2.Clear();
+                            }
+                            else
+                            {
+                                foreach (Cell cell in listCells1)
+                                {
+                                    cell.setValue = cell2.setValue;
+                                }
+                                listCells2.AddRange(listCells1);
+                                listCells1.Clear();
+                            }
+                        }
+                        break;
+                    default:
+                        throw new Exception();
+                }
+            }
         }
 
         /// <summary>
